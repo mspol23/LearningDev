@@ -14,7 +14,7 @@
         {
         "presets": ["@babel/preset-env"]
         }
-
+ 
 5. cria pasta public/
 
 6. Dentro do public/ criar arquivos bundle.js e index.html
@@ -1017,3 +1017,61 @@ execPromise()
 ```
 
 No caso acima, se retirarmos o async/await, ele simplesmente atribuirá o valor estrutural da promessa inda pendente (pending) e o console.log imprimirá este valor. O async/await esperará a conclusão da promessa ocorra e, assim, poderá receber seu resultado.
+
+# async / await
+
+```js
+const myPromise = () => new Promise((resolve, reject) => {
+    return setTimeout(
+        () => {resolve( 'Resolvida!' )},
+    2000)
+})
+
+/* async function execPromise() {
+    const i = await myPromise()
+    console.log(i)
+}
+
+execPromise()
+ */
+/* myPromise().then(
+
+    () => {
+        console.log('response')
+
+        myPromise().then(
+
+            () => {
+                console.log('response 2')
+
+                myPromise().then(
+
+                    () => {
+                        console.log('response 3')
+                    }
+                )
+            }
+        )
+    }
+) */
+
+// Sintaxe mais limpa:
+
+async function execute() {
+    
+    await myPromise() 
+    console.log('1')
+        
+    await myPromise() 
+    console.log('1')
+
+    await myPromise() 
+    console.log('1')
+}
+
+execute()
+```
+
+# try ... catch
+
+
