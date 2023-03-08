@@ -1,3 +1,79 @@
+# Configuração do Babel.
+
+1. npm init -y
+
+2. npm i @babel/core @babel/cli @babel/preset-env -D
+
+3. cria .gitignore para node_modules
+
+4. cria pasta src/
+
+5. Dentro da src/ cria arquivo main.js e .babelrc
+
+    * Dentro do arquivo .babelrc escrever:
+        {
+        "presets": ["@babel/preset-env"]
+        }
+
+5. cria pasta public/
+
+6. Dentro do public/ criar arquivos bundle.js e index.html
+
+7. Rodar Babel.
+    * linha de comando cheia: node_modules/.bin/babel ./src/main.js -o ./Public/bundle.js -w
+
+    * A linha de comando cheia pode ser substituída pelo comando npx (app que acompanha o npm, que, por sua vez, acompanha o Node.): npx babel ./src/main.js -o ./Public/bundle.js -w
+
+    * No arquivo package.json, na parte de scripts, substituir o "test" por outra propriedade com nome qualquer (sugere-se "dev"), seguida da seguinte linha de comando: babel ./src/main.js -o ./Public/bundle.js -w.
+
+        -  "scripts": {
+            "dev": "npx babel ./src/main.js -o ./Public/bundle.js -w"
+            },
+
+    * Feita a etapa anterior, podemos executar o Babel com a seguinte linha de comando simplificada: npm run dev.
+
+
+# let & const
+
+```js
+    //const & let
+
+// variável criada com const é read-only
+
+// variável criada com let permite que lhe seja atribuído novo valor.
+
+// const entretanto admite mutação
+
+// Ex.:
+
+const person = { name: 'Marcos' }
+
+/* person = { name: 'Oliveira' } */
+
+// Entretanto ser fizermos 
+
+person.name = 'Oliveira'
+
+// O código executa a mudança do atributo name para 'Oliveira'. Isso se chama mutação.
+
+console.log(person)
+
+// Usar let ou const??
+
+// Preferencialmente const. Deixará o código mais seguro.
+
+// Usar let somente quando precisarmos reatribuir valor.]
+
+// Ex.:
+
+for(let i = 0; i < 10; i++) {
+    console.log(i)
+}
+
+// No exemplo acima o comando var deixaria a variável i vazar para fora do escopo, já o const não deixaria o incremento de valor ocorrer, pois precisaria atribuir um novo valor à i a cada volta no loop. Neste caso, portanto, dever-se-á utilizar let.
+```
+```js
+
 // Método forEach()
 
 // método que recebe uma função callback. Executa um loop, com aplicação do código em cada item do array.
@@ -809,13 +885,135 @@ console.log(hb20)
         }
     }
 
-    const bross = new Moto(2, gasoline, false)
+    const bross = new Moto(2, 'gasolina', false)
 
     console.log(bross.helmet)
 
     bross.usingHelmet()
 }
+```
 
-// Configurando o webpack.
+# import / export
+
+## Arquivos e comandos de exportação:
+
+### Calculator
+
+```js
+export const sum = (a, b) => console.log(a + b)
+
+export const subtraction = (a, b) => console.log(a - b)
+
+export {
+    sum, subtraction
+}
+```
+### sum:
+
+```js
+// Exportando um função anônima. Na importação poderemos acomodá-la em qualquer variável.
+
+export default (a, b) => console.log(a + b)
+
+// Além de criar e exportar a função padrão, podemos criar e exportar outras regulares
+
+const subtraction = (a, b) => console.log(a - b)
+
+export {
+    subtraction
+}
+```
+### Formas de importação:
 
 
+1. FORMA 1
+
+```js
+/* import {sum, subtraction} from './calculator'
+
+console.log (sum(4, 4))
+
+console.log (subtraction(10, 5)) */
+```
+2. FORMA 2
+
+Importar todas as funções de outro arquivo: "*" com a criação de uma espécie de variável que servirá para acessar as funções do arquivo export como se fossem métodos.
+
+```js
+import * as methods from './calculator'
+
+methods.sum(10, 10)
+```
+3. FORMA 3
+
+- Como importar a exportação padrão:
+
+```js
+import methodSum from './sum'
+
+methodSum(5, 5) */
+```
+- Podemos criar exportações nominadas no mesmo arquivo da exportação padrão (que deve ser única em seu arquivo)
+
+Abaixo, importamos a exportação padrão e atribuímos o nome methodSum (qualquer), e importamos outra função exportada, a subtraction.
+
+```js
+import methodSum, {subtraction} from './sum'
+
+methodSum(4, 4)
+
+subtraction(10, 5)
+```
+
+# async / wait
+
+## promise (revisão breve):
+
+```js
+const myPromise = () => new Promise((resolve, reject) => {
+    return setTimeout(
+        () => {resolve( console.log ('ok') )},
+    2000)
+})
+
+myPromise().then(
+
+    () => {
+        console.log('response')
+
+        myPromise().then(
+
+            () => {
+                console.log('response 2')
+
+                myPromise().then(
+
+                    () => {
+                        console.log('response 3')
+                    }
+                )
+            }
+        )
+    }
+)
+```
+## async / await 
+
+- Reescrevendo a promessa acima com outra estrutura. Mais simples.
+
+```js
+const myPromise = () => new Promise((resolve, reject) => {
+    return setTimeout(
+        () => {resolve( 'Resolvida!' )},
+    2000)
+})
+
+async function execPromise() {
+    const i = await myPromise()
+    console.log(i)
+}
+
+execPromise()
+```
+
+No caso acima, se retirarmos o async/await, ele simplesmente atribuirá o valor estrutural da promessa inda pendente (pending) e o console.log imprimirá este valor. O async/await esperará a conclusão da promessa ocorra e, assim, poderá receber seu resultado.
