@@ -8,7 +8,7 @@ app.use(express.json())
 
 const users: User[] = []
 
-app.get('/users', (request, response)) => {
+app.get('/users', (request, response) => {
     // buscar no banco de dados os usuários
     
     // retornar os usuários
@@ -16,9 +16,9 @@ app.get('/users', (request, response)) => {
     // como não temos bd, escreveremos um retorno simples.
 
     return response.json(users)
-}
+})
 
-app.post('/users', (request, response)) => {
+app.post('/users', (request, response) => {
     // receber os dados dos usuários
     const {name, email} = request.body
 
@@ -30,9 +30,9 @@ app.post('/users', (request, response)) => {
 
     // retornar os dados do usuário criado
     return response.json()
-}
+})
 
-app.put('/users/:id', (request, response)) => {
+app.put('/users/:id', (request, response) => {
     // receber os dados do usuário
     const { id } = request.params
     const { name, email }= request.body
@@ -50,18 +50,24 @@ app.put('/users/:id', (request, response)) => {
 
     // retorna os dados do usuário atualizado
     return response.json({editedUser})
-}
+})
 
-app.delete('/users', (request, response)) => {
+app.delete('/users:id', (request, response) => {
     // localizar o usuário na base de dados
     const { id } = request.params
 
     // retornar erro caso o usuário não exista
+    const userIndex = users.findIndex((user) => {user.id === id})
 
     // excluir usuário da base de dados
+    if (userIndex < 0) {
+        return response.status(404).json({error: 'User not found.'})
+    }
+    users.splice(userIndex, 1)
 
     //retornar status de sucesso
-}
+    return response.status(204).send()
+})
 
 
 /* }
