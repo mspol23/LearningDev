@@ -1,0 +1,58 @@
+/* Header style */
+.headerTitle {
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    font-size: 28px;
+}
+
+.headerContainer {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem 0 2rem;
+    background-color: royalblue;
+    width: 100vw;
+    height: 6rem;
+
+}
+
+/* Hamburger */
+
+.burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: .4rem;
+    width: 2rem;
+    height: calc(.6rem * 3);
+}
+
+.burgerParts {
+    background-color: black;
+    width: inherit;
+    height: .6rem;
+}
+
+/* Menu show/hidden */
+.showMenu {
+    display: flex;
+    position: absolute;
+    align-items: end;
+    width: 10rem;
+    height: 20rem;
+    top: 6rem;
+    right: 0;
+    background-color: aqua;
+    transition: linear 1s;
+}
+
+@keyframes example {
+    from {}
+} {
+    
+}
+
+.hideMenu {
+    display: none;
+}

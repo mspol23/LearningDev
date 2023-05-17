@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #1ce81c4b;
+    width: 10rem;
+    height: 30rem;
+    
+}
+
+.navContainer {
+    display: block;
+    width: 2rem;
+    height: calc(.2 * 3 + (.5 * 2));
+    
+}
+
+.navContainer:hover {
+    transform: translate3d(90px, 50%, 3rem) rotate(30deg);
+}
+
+
+.iconPart {
+    display: flex;
+    
+    background-color: black;
+    width: 2rem;
+    height: .2rem;
+
+}
+
+.iconPart + .iconPart {
+    margin-top: .5rem;
+}
