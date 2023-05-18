@@ -1,5 +1,7 @@
 
 
+
+
 let playerOneName = prompt("Enter player 1 name:");
 let playerTwoName = prompt("Enter player 2 name:");
 
@@ -21,11 +23,11 @@ function rollDice() {
     let message = document.querySelector("header");
 
     if (dice1Number > dice2Number) {
-        message.innerText = "Player 1 win!";
-        message.classList.add("w innerAnnounce"); 
+        message.innerText = `${playerOneName} Win!`;
+        message.classList.add("winnerAnnounce"); 
 
     } else if (dice2Number > dice1Number) {
-        message.innerText = "Player 2 win!"  
+        message.innerText = `${playerTwoName} Win!`;  
         message.classList.add("winnerAnnounce");     
     } else {
         message.innerText = "Draw!"  
